@@ -18,14 +18,10 @@ final class SyncManager: Syncable {
     static let sharedManager = SyncManager()
     private init() {
     }
-
-    private func getSyncData() -> [DBObject]? {
-        // get all stories which are updated locally..
-
-        return nil
-    }
-
     func Sync(completion: @escaping (Bool) -> Void) {
+        CoreDataService.sharedService.fetch(Story.self, predicateFormat: "storyStatus != \(StoryStatus.Unchanged)") { (unsynchedStories) in
+//            print(unsynchedStories)
+        }
         completion(true)
     }
 }

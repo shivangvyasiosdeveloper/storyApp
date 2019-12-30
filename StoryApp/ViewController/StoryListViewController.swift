@@ -15,8 +15,8 @@ protocol StoryListViewControllerable {
 class StoryListViewController: UIViewController, StoryListViewControllerable {
     private let coordinator: Coordinator?
     private var viewmodel: StoryListViewModelable?
-    private weak var datasourceStoryList: StoryListDataSource?
-    private weak var delegateStoryList: StoryListDelegate?
+    private var datasourceStoryList: StoryListDataSource?
+    private var delegateStoryList: StoryListDelegate?
     var shouldFetchData = false
 
 // MARK: Initializers
