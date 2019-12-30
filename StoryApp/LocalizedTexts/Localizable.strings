@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  StoryApp
+
+  Created by shivang on 28/12/19.
+  Copyright © 2019 iOS Developer. All rights reserved.
+*/
+
+"LS_STORY" = "story";
+"LS_INVALIDSTORYTITLEMESSAGE" = "Story Title should be min 2 length and maximum 255 length";
+"LS_INVALIDSTORYDESCRIPTIONMESSAGE" = "Story Description should be min 2 length";
+"LS_ADDSTORY" = "Add Story";
+"LS_CLEARALL" = "Remove All";
+"LS_STORIES" = "Stories";
+"LS_ADDNEWSTORY" = "Add New Story";
+"LS_SUBMIT" = "Submit";
+"LS_STORYTITLE" = "Story Title";
+"LS_ENTERSTORYTITLE" = "Enter Story Title";
+"LS_STORYDESCRIPTION" = "Story Description";
+"LS_ISINTERNETAVAILABLE" = "Is Internet Available";

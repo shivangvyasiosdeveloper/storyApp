@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ServerTime" representedClassName="ServerTime" syncable="YES">
+        <attribute name="lastRequestedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Story" representedClassName="Story" syncable="YES">
+        <attribute name="createdBy" optional="YES" attributeType="String"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="modifiedBy" optional="YES" attributeType="String"/>
+        <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="storyDescription" optional="YES" attributeType="String" minValueString="2"/>
+        <attribute name="storyId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="storyStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="storyTitle" optional="YES" attributeType="String" minValueString="2" maxValueString="255"/>
+    </entity>
+    <elements>
+        <element name="Story" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="ServerTime" positionX="-63" positionY="45" width="128" height="58"/>
+    </elements>
+</model>

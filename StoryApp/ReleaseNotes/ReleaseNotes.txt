@@ -1,0 +1,11 @@
+Text Editor with offline support
+
+- User should be able to write a story in both online and offline modes
+
+- Users should be able to write multiple stories.
+
+- Each story should have a title and text content.
+
+- Stories should be saved to the server when the user goes online (dummy API call. Log the story title and ID).
+
+We are expecting a scalable solution.
