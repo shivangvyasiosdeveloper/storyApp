@@ -8,21 +8,23 @@
 import Reachability
 import Foundation
 import UIKit
-
-protocol Reachable {
+protocol ReachabilityChanged {
+    func ConnectivityChanged(notification: Notification)
+}
+protocol Reachable: class, ReachabilityChanged {
     func startMonitoring()
     func stopMonitoring()
-    func reachabilityChanged(note: NSNotification)
+    func IsInternetAvailalbe() -> Bool
 }
-
 class ReachabilityManager: Reachable {
+    private var observers: [AnyObject] = []
     private let reachability: Reachability?
     static let sharedManager = ReachabilityManager()
     private init() {
         reachability = try? Reachability()
     }
     func startMonitoring() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: Notification.Name.reachabilityChanged, object: reachability)
+        NotificationCenter.default.addObserver(self, selector: #selector(ConnectivityChanged), name: Notification.Name.reachabilityChanged, object: reachability)
         do {
             try reachability?.startNotifier()
         } catch {
@@ -33,18 +35,32 @@ class ReachabilityManager: Reachable {
         reachability?.stopNotifier()
         NotificationCenter.default.removeObserver(self, name: Notification.Name.reachabilityChanged, object: reachability)
     }
-    @objc func reachabilityChanged(note: NSNotification) {
-        if let reachability = note.object as? Reachability {
-            switch reachability.connection {
+    func IsInternetAvailalbe() -> Bool {
+        switch reachability?.connection {
+        case .wifi, .cellular:
+            return true
+        default:
+            return false
+        }
+    }
+    @objc func ConnectivityChanged(notification: Notification) {
+        if let reachebility = notification.object as? Reachability {
+            for eachObserver in observers {
+                eachObserver.ConnectivityChanged(notification: notification)
+            }
+            switch reachebility.connection {
             case .unavailable:
-                print("network unavailable")
-            case .wifi:
-                print("wifi connected")
+                print("internet unavailable")
             case .cellular:
-                print("cellular connected")
-            case .none:
-                print("none network")
+                print("internet cellular")
+            case .wifi:
+                print("internet wifi")
+            default:
+                break
             }
         }
+    }
+    func addObserver(observer: ReachabilityChanged & AnyObject) {
+        self.observers.append(observer)
     }
 }

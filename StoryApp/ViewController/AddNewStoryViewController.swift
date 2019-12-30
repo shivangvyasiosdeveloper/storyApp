@@ -211,7 +211,9 @@ extension AddStoryViewController {
                         if let viewmodel = viewmodel as? AddStoryModelable {
                             viewmodel.addStory { (_) in
                                 self.coordinator?.goBackToHomeScreenAndRefetchAllData()
-                                SyncManager.sharedManager.GetUnsyncData { (_) in
+                                if ReachabilityManager.sharedManager.IsInternetAvailalbe() {
+                                    SyncManager.sharedManager.GetUnsyncData { (_) in
+                                    }
                                 }
                             }
                         }
@@ -219,7 +221,9 @@ extension AddStoryViewController {
                         if let viewmodel = viewmodel as? EditStoryModelable {
                             viewmodel.editStory { (_) in
                                 self.coordinator?.goBackToHomeScreenAndRefetchAllData()
-                                SyncManager.sharedManager.GetUnsyncData { (_) in
+                                    if ReachabilityManager.sharedManager.IsInternetAvailalbe() {
+                                        SyncManager.sharedManager.GetUnsyncData { (_) in
+                                    }
                                 }
                             }
                         }

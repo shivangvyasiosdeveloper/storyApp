@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Reachability
 
 protocol Syncable {
     func GetUnsyncData(completion: @escaping (Bool) -> Void)
@@ -17,11 +18,32 @@ final class SyncManager: Syncable {
     private var syncData: [DBObject]?
     static let sharedManager = SyncManager()
     private init() {
+        ReachabilityManager.sharedManager.addObserver(observer: self)
     }
     func GetUnsyncData(completion: @escaping (Bool) -> Void) {
         CoreDataService.sharedService.fetch(Story.self, predicateFormat: "storyStatus != \(StoryStatus.Unchanged)") { (unsynchedStories) in
+            print("######################################")
+            print("post this data to server via api...")
             print(unsynchedStories)
+            print("######################################")
             completion(true)
+        }
+    }
+}
+
+extension SyncManager: ReachabilityChanged {
+    func ConnectivityChanged(notification: Notification) {
+        if let reachebility = notification.object as? Reachability {
+            switch reachebility.connection {
+            case .unavailable:
+                print("internet unavailable")
+            case .cellular, .wifi:
+                print("Internet available")
+                self.GetUnsyncData { (_) in
+                }
+            default:
+                break
+            }
         }
     }
 }
