@@ -84,7 +84,7 @@
 		92BC5ADC23B6FD1A00C4DAE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92BC5AEB23B6FE8500C4DAE1 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		92BC5AED23B6FEAC00C4DAE1 /* CoordinatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorService.swift; sourceTree = "<group>"; };
-		92BC5AF023B6FEEC00C4DAE1 /* ReleaseNotes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
+		92BC5AF023B6FEEC00C4DAE1 /* AssignnemtQuestion.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = AssignnemtQuestion.txt; sourceTree = "<group>"; };
 		92BC5AF323B7003E00C4DAE1 /* StoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewController.swift; sourceTree = "<group>"; };
 		92BC5AF623B7008B00C4DAE1 /* StoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewModel.swift; sourceTree = "<group>"; };
 		92BC5AF923B7013700C4DAE1 /* StoryListViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewModelable.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				92DFF60F23B9CBAF00F4B950 /* Logic.txt */,
-				92BC5AF023B6FEEC00C4DAE1 /* ReleaseNotes.txt */,
+				92BC5AF023B6FEEC00C4DAE1 /* AssignnemtQuestion.txt */,
 			);
 			path = ReleaseNotes;
 			sourceTree = "<group>";
