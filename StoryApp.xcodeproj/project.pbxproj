@@ -12,6 +12,8 @@
 		922C9CC223B9AAA500EECD03 /* ServerTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922C9CC023B9AAA500EECD03 /* ServerTime+CoreDataProperties.swift */; };
 		922C9CC423B9ABA100EECD03 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922C9CC323B9ABA100EECD03 /* SyncManager.swift */; };
 		924C1D1523B72DFF00E7CAFB /* StoryListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924C1D1423B72DFF00E7CAFB /* StoryListDataSource.swift */; };
+		927D764C23BA2EF60044D15F /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927D764B23BA2EF60044D15F /* ReachabilityManager.swift */; };
+		927D764E23BA414D0044D15F /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927D764D23BA414D0044D15F /* CoreTelephony.framework */; };
 		92B1F64723B739FD0061505D /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1F64623B739FD0061505D /* StoryTableViewCell.swift */; };
 		92B1F64923B73A350061505D /* StoryTableCellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1F64823B73A350061505D /* StoryTableCellable.swift */; };
 		92B1F65423B73D880061505D /* StoryListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1F65323B73D880061505D /* StoryListDelegate.swift */; };
@@ -59,6 +61,8 @@
 		922C9CC023B9AAA500EECD03 /* ServerTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		922C9CC323B9ABA100EECD03 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		924C1D1423B72DFF00E7CAFB /* StoryListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListDataSource.swift; sourceTree = "<group>"; };
+		927D764B23BA2EF60044D15F /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
+		927D764D23BA414D0044D15F /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		92B1F64623B739FD0061505D /* StoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		92B1F64823B73A350061505D /* StoryTableCellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableCellable.swift; sourceTree = "<group>"; };
 		92B1F65323B73D880061505D /* StoryListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				927D764E23BA414D0044D15F /* CoreTelephony.framework in Frameworks */,
 				B78E438BEFEF0C9CED59BBF5 /* Pods_StoryApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +122,7 @@
 		8076A5FC1139FF68F64E32AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				927D764D23BA414D0044D15F /* CoreTelephony.framework */,
 				0B250BA0F2505C31AE3BE59A /* Pods_StoryApp.framework */,
 				22763BBA68145C8AC07FE129 /* Pods_StoryAppTests.framework */,
 			);
@@ -137,6 +143,14 @@
 				924C1D1423B72DFF00E7CAFB /* StoryListDataSource.swift */,
 			);
 			path = DataSources;
+			sourceTree = "<group>";
+		};
+		927D764A23BA2EDA0044D15F /* ReachabilityManager */ = {
+			isa = PBXGroup;
+			children = (
+				927D764B23BA2EF60044D15F /* ReachabilityManager.swift */,
+			);
+			path = ReachabilityManager;
 			sourceTree = "<group>";
 		};
 		92B1F64523B739E00061505D /* TableViewCell */ = {
@@ -195,6 +209,7 @@
 		92BC5ABF23B6FD0A00C4DAE1 /* StoryApp */ = {
 			isa = PBXGroup;
 			children = (
+				927D764A23BA2EDA0044D15F /* ReachabilityManager */,
 				92DFF61223B9D41600F4B950 /* SwiftLint */,
 				92B1F66623B7BB950061505D /* Enums */,
 				92B1F65D23B774A30061505D /* LocalizedTexts */,
@@ -533,6 +548,7 @@
 				92BC5AF423B7003E00C4DAE1 /* StoryListViewController.swift in Sources */,
 				924C1D1523B72DFF00E7CAFB /* StoryListDataSource.swift in Sources */,
 				92B1F64723B739FD0061505D /* StoryTableViewCell.swift in Sources */,
+				927D764C23BA2EF60044D15F /* ReachabilityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

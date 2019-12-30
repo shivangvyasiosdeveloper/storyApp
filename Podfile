@@ -8,6 +8,7 @@ target 'StoryApp' do
   # Pods for StoryApp
 	pod 'Bond'
   pod 'SwiftLint'
+  pod 'ReachabilitySwift'
   target 'StoryAppTests' do
     inherit! :search_paths
     # Pods for testing

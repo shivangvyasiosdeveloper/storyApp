@@ -36,23 +36,6 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
         tableView.backgroundColor = .clear
         return tableView
     }()
-
-    private lazy var labelIsInternetAvailable: UILabel = {
-          let labelIsInternetAvailable = UILabel.init()
-          labelIsInternetAvailable.backgroundColor = .clear
-          labelIsInternetAvailable.font = UIFont.boldSystemFont(ofSize: Constants.fontsize)
-          labelIsInternetAvailable.textColor = .systemBlue
-          labelIsInternetAvailable.textAlignment = .left
-          labelIsInternetAvailable.text = NSLocalizedString("LS_ISINTERNETAVAILABLE", comment: "")
-
-          return labelIsInternetAvailable
-      }()
-    private lazy var switchInternetAvailability: UISwitch = {
-       let switchInternetAvailability = UISwitch()
-        switchInternetAvailability.addTarget(self, action: #selector(changeInternetAvaibility), for: .valueChanged)
-        return switchInternetAvailability
-    }()
-
     private lazy var barButtonAddStory: UIBarButtonItem = {
         let barButtonAddStory = UIBarButtonItem.init(title: NSLocalizedString("LS_ADDSTORY", comment: ""), style: .done, target: self, action: #selector(btnAddStoryTapped))
         return barButtonAddStory
@@ -100,8 +83,6 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
     func setupCustomLayout() {
         self.view.backgroundColor = .secondarySystemBackground
         self.view.addSubview(tableView)
-        self.view.addSubview(labelIsInternetAvailable)
-        self.view.addSubview(switchInternetAvailability)
     }
 
     func setupInitValues() {
@@ -128,40 +109,16 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
             }
         }
     }
-
-    @objc func changeInternetAvaibility() {
-        if switchInternetAvailability.isOn {
-            Reachbility.status = .available
-            SyncManager.sharedManager.GetUnsyncData { (_) in
-            }
-        } else {
-            Reachbility.status = .unAvailable
-        }
-    }
-
 }
 
 extension StoryListViewController {
     func BuildConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        labelIsInternetAvailable.translatesAutoresizingMaskIntoConstraints = false
-        switchInternetAvailability.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint .activate([
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-
-            labelIsInternetAvailable.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
-            labelIsInternetAvailable.heightAnchor.constraint(equalToConstant: 20),
-            labelIsInternetAvailable.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            labelIsInternetAvailable.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -150),
-
-            switchInternetAvailability.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
-            switchInternetAvailability.leadingAnchor.constraint(equalTo: labelIsInternetAvailable.trailingAnchor, constant: 20),
-            switchInternetAvailability.widthAnchor.constraint(equalToConstant: 100),
-            switchInternetAvailability.heightAnchor.constraint(equalToConstant: 50)
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
 
     }

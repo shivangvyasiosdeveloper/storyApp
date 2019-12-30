@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Reachability
 
 //===========there are some static predefined values for demo purpose only.=====...
 struct Reachbility {
@@ -38,8 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let mainCoordinator = Coordinator(mainNavigationController)
         mainCoordinator.start()
-
         return true
     }
-
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        ReachabilityManager.sharedManager.startMonitoring()
+    }
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        ReachabilityManager.sharedManager.stopMonitoring()
+    }
 }
