@@ -11,7 +11,6 @@
 		922C9CC123B9AAA500EECD03 /* ServerTime+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922C9CBF23B9AAA500EECD03 /* ServerTime+CoreDataClass.swift */; };
 		922C9CC223B9AAA500EECD03 /* ServerTime+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922C9CC023B9AAA500EECD03 /* ServerTime+CoreDataProperties.swift */; };
 		922C9CC423B9ABA100EECD03 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922C9CC323B9ABA100EECD03 /* SyncManager.swift */; };
-		922C9CC823B9BA4300EECD03 /* HowItworks.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 922C9CC723B9BA4300EECD03 /* HowItworks.rtf */; };
 		924C1D1523B72DFF00E7CAFB /* StoryListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924C1D1423B72DFF00E7CAFB /* StoryListDataSource.swift */; };
 		92B1F64723B739FD0061505D /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1F64623B739FD0061505D /* StoryTableViewCell.swift */; };
 		92B1F64923B73A350061505D /* StoryTableCellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1F64823B73A350061505D /* StoryTableCellable.swift */; };
@@ -37,6 +36,7 @@
 		92BC5AF423B7003E00C4DAE1 /* StoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC5AF323B7003E00C4DAE1 /* StoryListViewController.swift */; };
 		92BC5AF723B7008B00C4DAE1 /* StoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC5AF623B7008B00C4DAE1 /* StoryListViewModel.swift */; };
 		92BC5AFA23B7013700C4DAE1 /* StoryListViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BC5AF923B7013700C4DAE1 /* StoryListViewModelable.swift */; };
+		92DFF61023B9CBB000F4B950 /* Logic.txt in Resources */ = {isa = PBXBuildFile; fileRef = 92DFF60F23B9CBAF00F4B950 /* Logic.txt */; };
 		B78E438BEFEF0C9CED59BBF5 /* Pods_StoryApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B250BA0F2505C31AE3BE59A /* Pods_StoryApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +58,6 @@
 		922C9CBF23B9AAA500EECD03 /* ServerTime+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerTime+CoreDataClass.swift"; sourceTree = "<group>"; };
 		922C9CC023B9AAA500EECD03 /* ServerTime+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServerTime+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		922C9CC323B9ABA100EECD03 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
-		922C9CC723B9BA4300EECD03 /* HowItworks.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = HowItworks.rtf; sourceTree = "<group>"; };
 		924C1D1423B72DFF00E7CAFB /* StoryListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListDataSource.swift; sourceTree = "<group>"; };
 		92B1F64623B739FD0061505D /* StoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell.swift; sourceTree = "<group>"; };
 		92B1F64823B73A350061505D /* StoryTableCellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTableCellable.swift; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		92BC5AF323B7003E00C4DAE1 /* StoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewController.swift; sourceTree = "<group>"; };
 		92BC5AF623B7008B00C4DAE1 /* StoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewModel.swift; sourceTree = "<group>"; };
 		92BC5AF923B7013700C4DAE1 /* StoryListViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewModelable.swift; sourceTree = "<group>"; };
+		92DFF60F23B9CBAF00F4B950 /* Logic.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Logic.txt; sourceTree = "<group>"; };
 		DE0767270D2F2F409B821FA4 /* Pods-StoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryApp.debug.xcconfig"; path = "Target Support Files/Pods-StoryApp/Pods-StoryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FB462C6724A164332CC76751 /* Pods-StoryAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryAppTests.debug.xcconfig"; path = "Target Support Files/Pods-StoryAppTests/Pods-StoryAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -266,8 +266,8 @@
 		92BC5AEF23B6FECD00C4DAE1 /* ReleaseNotes */ = {
 			isa = PBXGroup;
 			children = (
+				92DFF60F23B9CBAF00F4B950 /* Logic.txt */,
 				92BC5AF023B6FEEC00C4DAE1 /* ReleaseNotes.txt */,
-				922C9CC723B9BA4300EECD03 /* HowItworks.rtf */,
 			);
 			path = ReleaseNotes;
 			sourceTree = "<group>";
@@ -395,8 +395,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				922C9CC823B9BA4300EECD03 /* HowItworks.rtf in Resources */,
 				92BC5AD023B6FD1900C4DAE1 /* LaunchScreen.storyboard in Resources */,
+				92DFF61023B9CBB000F4B950 /* Logic.txt in Resources */,
 				92B1F65F23B774D60061505D /* Localizable.strings in Resources */,
 				92BC5ACD23B6FD1900C4DAE1 /* Assets.xcassets in Resources */,
 			);
