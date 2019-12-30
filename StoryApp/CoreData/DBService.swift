@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 protocol ObjectID {
-    
+
 }
-extension NSManagedObjectID: ObjectID{
-    
+extension NSManagedObjectID: ObjectID {
+
 }
 
 struct Sorted {
@@ -22,37 +22,37 @@ struct Sorted {
 }
 
 protocol UpdateDBService {
-    associatedtype T: DBObject
+    associatedtype Element: DBObject
     func update(block: @escaping () -> Void) throws
 }
 
 protocol DeleteDBService {
-    associatedtype T: DBObject
-    func delete<T:DBObject>(_ model: T.Type, object: DBObject, completion: @escaping () -> ()) throws
-    func deleteAll<T : DBObject>(_ model: T.Type, completion:@escaping ((Bool) -> Void)) throws
+    associatedtype Element: DBObject
+    func delete<Element: DBObject>(_ model: Element.Type, object: DBObject, completion: @escaping () -> Void) throws
+    func deleteAll<Element: DBObject>(_ model: Element.Type, completion:@escaping ((Bool) -> Void)) throws
     func reset() throws
 
 }
 
 protocol FetchDBService {
-    associatedtype T: DBObject
-    func fetch<T: DBObject>(_ model: T.Type, predicateFormat: String?, completion:@escaping (([T]?) -> ()))
-    func fetchAll<T:DBObject>(_ model: T.Type, completion:@escaping (([T]?) -> ()))
+    associatedtype Element: DBObject
+    func fetch<Element: DBObject>(_ model: Element.Type, predicateFormat: String?, completion:@escaping (([Element]?) -> Void))
+    func fetchAll<Element: DBObject>(_ model: Element.Type, completion:@escaping (([Element]?) -> Void))
 }
 
 protocol ObjectFromFaultService {
-    associatedtype F: ObjectID
-    func getObjectFromFault<F: ObjectID>(objectID:F, completion: ((DBObject?) -> Void)) -> Void
+    associatedtype FaultID: ObjectID
+    func getObjectFromFault<FaultID: ObjectID>(objectID: FaultID, completion: ((DBObject?) -> Void))
 }
 
-protocol CreateDBService{
-    func create<T: DBObject>(_ model: T.Type, completion: @escaping ((T) -> Void)) throws
+protocol CreateDBService {
+    func create<Element: DBObject>(_ model: Element.Type, completion: @escaping ((Element?) -> Void)) throws
 }
 
 protocol SyncService {
-    func getSyncData<T:DBObject>(_ model: T.Type, completion: @escaping (([T]?) -> Void)) throws
+    func getSyncData<Element: DBObject>(_ model: Element.Type, completion: @escaping (([Element]?) -> Void)) throws
 }
 
 protocol DBService: CreateDBService, FetchDBService, UpdateDBService, DeleteDBService, ObjectFromFaultService, SyncService {
-    func save(completion:()->())
+    func save(completion:() -> Void)
 }

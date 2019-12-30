@@ -10,18 +10,17 @@ import Foundation
 import Bond
 
 protocol StoryListViewDeletable {
-    func removeAllStories(completion:@escaping () -> ())
-    func removeStory(at: Int, completion: @escaping() -> ())
+    func removeAllStories(completion:@escaping () -> Void)
+    func removeStory(at: Int, completion: @escaping() -> Void)
 }
 protocol StoryListViewGettable {
     func getStoryAt(index: Int, completion: ((Story?)) -> Void)
     func getAllStories(completion:@escaping ([Story]?) -> Void)
 }
 
-
 protocol StoryListViewModelable: StoryListViewGettable, StoryListViewDeletable {
     var selectedStoryIndex: Int? {get set}
-    var delegate: StoryListViewModelDelegate?{get set}
+    var delegate: StoryListViewModelDelegate? {get set}
     func getNoOfSections() -> Int
     func getNoOfStories() -> Int
 }

@@ -15,8 +15,7 @@ enum StoryConstants {
      static let minDescriptionLength: Int = 3
 }
 
-
-enum StoryValidationError: String, Error{
+enum StoryValidationError: String, Error {
     case invalidStoryTitleLengthError = "Story Title should be min 2 length and maximum 255 length"
     case invalidStoryDescriptionLengthError = "Story Description should be min 2 length"
 }
@@ -30,51 +29,55 @@ class AddEditStoryViewModel: AddStoryModelable, EditStoryModelable {
     var maxTitleLength: Int = StoryConstants.maxTitleLength
     var minTitleLength: Int = StoryConstants.minTitleLength
     var minDescriptionLength: Int = StoryConstants.minDescriptionLength
-    
+
     init() {
-        _ = storyTitle.map{
-            if ($0?.count ?? 0 <= self.maxTitleLength && $0?.count ?? 0 > self.minTitleLength) {
+        _ = storyTitle.map {
+            if $0?.count ?? 0 <= self.maxTitleLength && $0?.count ?? 0 > self.minTitleLength {
                 return true
-            }else{
+            } else {
                 return false
             }
         }.bind(to: isValidStoryTitle)
-        
-        _ = storyDescription.map{
-            if ($0?.count ?? 0 >= self.minDescriptionLength) {
+
+        _ = storyDescription.map {
+            if $0?.count ?? 0 >= self.minDescriptionLength {
                 return true
-            }else{
+            } else {
                 return false
             }
         }.bind(to: isValidStoryDescription)
-        
+
     }
-    
+
 }
 
-extension AddEditStoryViewModel{
+extension AddEditStoryViewModel {
     func addStory(completion:@escaping (Bool) -> Void) {
-        do{
+        do {
             try CoreDataService.sharedService.create(Story.self, completion: { (storyEntity) in
-                storyEntity.storyId = UUID()
-                print(UUID())
-                print(UUID().uuidString)
-                storyEntity.storyTitle = self.storyTitle.value
-                storyEntity.createdDate = Date()
-                storyEntity.createdBy = LoginUser.userId
-                storyEntity.storyStatus = Int32(StoryStatus.Added)
-                storyEntity.storyDescription = self.storyDescription.value
-                CoreDataService.sharedService.save {
-                    completion(true)
+                if let storyEntity = storyEntity {
+                    storyEntity.storyId = UUID()
+                    print(UUID())
+                    print(UUID().uuidString)
+                    storyEntity.storyTitle = self.storyTitle.value
+                    storyEntity.createdDate = Date()
+                    storyEntity.createdBy = LoginUser.userId
+                    storyEntity.storyStatus = Int32(StoryStatus.Added)
+                    storyEntity.storyDescription = self.storyDescription.value
+                    CoreDataService.sharedService.save {
+                        completion(true)
+                    }
+                } else {
+                    completion(false)
                 }
             })
-        }catch{
+        } catch {
             print(error.localizedDescription)
         }
     }
-    
+
     func editStory(completion: @escaping (Bool) -> Void) {
-        if let storyToBeEdit = selectedStory{
+        if let storyToBeEdit = selectedStory {
             storyToBeEdit.storyTitle = self.storyTitle.value
             storyToBeEdit.storyDescription = self.storyDescription.value
             storyToBeEdit.storyStatus = Int32(StoryStatus.Updated)

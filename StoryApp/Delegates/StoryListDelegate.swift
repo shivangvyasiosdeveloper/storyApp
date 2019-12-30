@@ -9,16 +9,19 @@
 import Foundation
 import UIKit
 
-class StoryListDelegate: NSObject, UITableViewDelegate {
+class StoryListDelegate: NSObject {
     private var viewmodel: StoryListViewModelable
-    init(_ viewModel: StoryListViewModelable){
+    init(_ viewModel: StoryListViewModelable) {
         self.viewmodel = viewModel
     }
-    
+}
+
+extension StoryListDelegate: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewmodel.getStoryAt(index: indexPath.row) { (story) in
             viewmodel.selectedStoryIndex = indexPath.row
             viewmodel.delegate?.OpenSelected(story: story)
         }
     }
+
 }

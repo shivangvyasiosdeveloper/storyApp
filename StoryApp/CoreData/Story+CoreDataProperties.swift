@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-enum StoryStatus{
+enum StoryStatus {
     static let Unchanged = 1
     static let Updated = 2
     static let Added = 3

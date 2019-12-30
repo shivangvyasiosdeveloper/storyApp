@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// defines a constants used in add story screen.
 enum Constants {
      static let fontsize: CGFloat = 20
      static let borderWidth: CGFloat = 1

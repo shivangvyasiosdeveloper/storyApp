@@ -15,10 +15,10 @@ protocol StoryListViewControllerable {
 class StoryListViewController: UIViewController, StoryListViewControllerable {
     private let coordinator: Coordinator?
     private var viewmodel: StoryListViewModelable?
-    private var tabledataSource: StoryListDataSource?
-    private var tabledelegate: StoryListDelegate?
+    private weak var datasourceStoryList: StoryListDataSource?
+    private weak var delegateStoryList: StoryListDelegate?
     var shouldFetchData = false
-    
+
 // MARK: Initializers
     required init(coordinator: Coordinator?, viewModel: StoryListViewModelable?) {
         self.coordinator = coordinator
@@ -26,7 +26,7 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
         super.init(nibName: nil, bundle: nil)
         self.viewmodel?.delegate = self
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -36,7 +36,7 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
         tableView.backgroundColor = .clear
         return tableView
     }()
-    
+
     private lazy var labelIsInternetAvailable: UILabel = {
           let labelIsInternetAvailable = UILabel.init()
           labelIsInternetAvailable.backgroundColor = .clear
@@ -44,7 +44,7 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
           labelIsInternetAvailable.textColor = .systemBlue
           labelIsInternetAvailable.textAlignment = .left
           labelIsInternetAvailable.text = NSLocalizedString("LS_ISINTERNETAVAILABLE", comment: "")
-          
+
           return labelIsInternetAvailable
       }()
     private lazy var switchInternetAvailability: UISwitch = {
@@ -52,7 +52,7 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
         switchInternetAvailability.addTarget(self, action: #selector(changeInternetAvaibility), for: .valueChanged)
         return switchInternetAvailability
     }()
-    
+
     private lazy var barButtonAddStory: UIBarButtonItem = {
         let barButtonAddStory = UIBarButtonItem.init(title: NSLocalizedString("LS_ADDSTORY", comment: ""), style: .done, target: self, action: #selector(btnAddStoryTapped))
         return barButtonAddStory
@@ -62,7 +62,7 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
         let barButtonClearAll = UIBarButtonItem.init(title: NSLocalizedString("LS_CLEARALL", comment: ""), style: .done, target: self, action: #selector(btnClearAllStoriesTapped))
         return barButtonClearAll
     }()
-    
+
 // MARK: ViewController life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,14 +71,14 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
         customizeNavigationBar()
         BuildConstraints()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadStories()
     }
 // MARK: Custom OR IBAction Methods
-    func loadStories(){
-        guard shouldFetchData else{
+    func loadStories() {
+        guard shouldFetchData else {
             return
         }
         DispatchQueue.global(qos: .background).async {
@@ -90,37 +90,36 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
             })
         }
     }
-    
-    func customizeNavigationBar(){
+
+    func customizeNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.rightBarButtonItem = barButtonAddStory
         self.navigationItem.leftBarButtonItem = barButtonClearAll
     }
-    
-    func setupCustomLayout(){
+
+    func setupCustomLayout() {
         self.view.backgroundColor = .secondarySystemBackground
         self.view.addSubview(tableView)
         self.view.addSubview(labelIsInternetAvailable)
         self.view.addSubview(switchInternetAvailability)
     }
-    
-    func setupInitValues(){
+
+    func setupInitValues() {
         self.title = NSLocalizedString("LS_STORIES", comment: "")
         self.shouldFetchData = true
         if let viewmodel = viewmodel {
-            tabledataSource = StoryListDataSource(viewmodel)
-            tabledelegate = StoryListDelegate(viewmodel)
-            
-            tableView.dataSource = tabledataSource
-            tableView.delegate = tabledelegate
+            datasourceStoryList = StoryListDataSource(viewmodel)
+            delegateStoryList = StoryListDelegate(viewmodel)
+            tableView.dataSource = datasourceStoryList
+            tableView.delegate = delegateStoryList
         }
     }
-    
-    @objc func btnAddStoryTapped(){
+
+    @objc func btnAddStoryTapped() {
         coordinator?.openNewStory()
     }
-    
-    @objc func btnClearAllStoriesTapped(){
+
+    @objc func btnClearAllStoriesTapped() {
         DispatchQueue.global(qos: .background).async {
             self.viewmodel?.removeAllStories {
                 DispatchQueue.main.async {
@@ -129,36 +128,34 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
             }
         }
     }
-    
-    @objc func changeInternetAvaibility(){
+
+    @objc func changeInternetAvaibility() {
         if switchInternetAvailability.isOn {
             Reachbility.status = .available
-        }else{
+        } else {
             Reachbility.status = .unAvailable
         }
     }
-    
+
 }
 
-
-extension StoryListViewController{
-    func BuildConstraints(){
+extension StoryListViewController {
+    func BuildConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         labelIsInternetAvailable.translatesAutoresizingMaskIntoConstraints = false
         switchInternetAvailability.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint .activate([
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
             tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            
+
             labelIsInternetAvailable.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
             labelIsInternetAvailable.heightAnchor.constraint(equalToConstant: 20),
             labelIsInternetAvailable.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             labelIsInternetAvailable.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -150),
-            
-            
+
             switchInternetAvailability.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
             switchInternetAvailability.leadingAnchor.constraint(equalTo: labelIsInternetAvailable.trailingAnchor, constant: 20),
             switchInternetAvailability.widthAnchor.constraint(equalToConstant: 100),
@@ -168,12 +165,10 @@ extension StoryListViewController{
     }
 }
 
-extension StoryListViewController: StoryListViewModelDelegate{
+extension StoryListViewController: StoryListViewModelDelegate {
     func OpenSelected(story: Story?) {
-        if let story = story{
+        if let story = story {
             self.coordinator?.openStory(story: story)
         }
     }
 }
-
-

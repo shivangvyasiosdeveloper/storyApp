@@ -15,7 +15,6 @@ enum Mode {
     case edit
 }
 
-
 protocol AddStoryViewControllerable {
     init(coordinator: Coordinator?, viewModel: AddStoryModelable?, mode: Mode)
 }
@@ -24,19 +23,18 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
     private var mode: Mode
     private let coordinator: Coordinator?
     private let viewmodel: StoryModelable?
-    
+
     required init(coordinator: Coordinator?, viewModel: AddStoryModelable?, mode: Mode) {
         self.coordinator = coordinator
         self.viewmodel = viewModel
         self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
     // MARK: UI elements
     private lazy var labelStoryTitle: UILabel = {
         let labelstoryTitle = UILabel.init()
@@ -45,10 +43,10 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         labelstoryTitle.textColor = .systemBlue
         labelstoryTitle.textAlignment = .left
         labelstoryTitle.text = NSLocalizedString("LS_STORYTITLE", comment: "")
-        
+
         return labelstoryTitle
     }()
-    
+
     private lazy var textFieldstoryTitle: UITextField = {
         let textFieldstoryTitle = UITextField.init()
         textFieldstoryTitle.backgroundColor = .clear
@@ -64,7 +62,7 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         textFieldstoryTitle.addTarget(self, action: #selector(dismissKeyboard), for: .editingDidEndOnExit)
         return textFieldstoryTitle
     }()
-    
+
     private lazy var labelStoryDescription: UILabel = {
         let labelStoryDescription = UILabel.init()
         labelStoryDescription.backgroundColor = .clear
@@ -72,10 +70,10 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         labelStoryDescription.textColor = .systemBlue
         labelStoryDescription.textAlignment = .left
         labelStoryDescription.text = NSLocalizedString("LS_STORYDESCRIPTION", comment: "")
-        
+
         return labelStoryDescription
     }()
-    
+
     private lazy var textViewstoryDescription: UITextView = {
         let textViewstoryDescription = UITextView.init()
         textViewstoryDescription.delegate = self
@@ -89,8 +87,7 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         textViewstoryDescription.layer.cornerRadius = Constants.corderRadius
         return textViewstoryDescription
     }()
-    
-    
+
     private lazy var buttonSubmit: UIButton = {
         let buttonSubmit = UIButton.init()
         buttonSubmit.backgroundColor = .systemBlue
@@ -103,8 +100,7 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         buttonSubmit.setTitle(NSLocalizedString("LS_SUBMIT", comment: ""), for: .normal)
         return buttonSubmit
     }()
-    
-    
+
     // MARK: view life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,17 +110,17 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         buildConstraints()
         bindViewModel()
     }
-    
+
     // MARK: custom or ibaction methods
-    func customizeNavigationBar(){
+    func customizeNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
-    func setInitialValues(){
+
+    func setInitialValues() {
         self.title = NSLocalizedString("LS_ADDNEWSTORY", comment: "")
     }
-    
-    func customizeScreen(){
+
+    func customizeScreen() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(labelStoryTitle)
         self.view.addSubview(textFieldstoryTitle)
@@ -132,46 +128,46 @@ class AddStoryViewController: UIViewController, AddStoryViewControllerable {
         self.view.addSubview(textViewstoryDescription)
         self.view.addSubview(buttonSubmit)
     }
-    
-    @objc func btnSubmitStoryTapped(){
+
+    @objc func btnSubmitStoryTapped() {
     }
 }
 
-extension AddStoryViewController{
-    func buildConstraints(){
-        
+extension AddStoryViewController {
+    func buildConstraints() {
+
         labelStoryTitle.translatesAutoresizingMaskIntoConstraints = false
         textFieldstoryTitle.translatesAutoresizingMaskIntoConstraints = false
         labelStoryDescription.translatesAutoresizingMaskIntoConstraints = false
         textViewstoryDescription.translatesAutoresizingMaskIntoConstraints = false
         buttonSubmit.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
-            labelStoryTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor , constant: CGFloat(ConstraintConstants.startOffset)),
+            labelStoryTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: CGFloat(ConstraintConstants.startOffset)),
             labelStoryTitle.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: CGFloat(ConstraintConstants.leadingOffset)),
             labelStoryTitle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: CGFloat(-ConstraintConstants.trailingOffset)),
             labelStoryTitle.heightAnchor.constraint(equalToConstant: ConstraintConstants.defaultHeight),
-            
+
             textFieldstoryTitle.topAnchor.constraint(equalTo: labelStoryTitle.bottomAnchor, constant: CGFloat(ConstraintConstants.topOffset)),
             textFieldstoryTitle.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: CGFloat(ConstraintConstants.leadingOffset)),
             textFieldstoryTitle.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: CGFloat(-ConstraintConstants.trailingOffset)),
             textFieldstoryTitle.heightAnchor.constraint(equalToConstant: ConstraintConstants.defaultHeight),
-            
-            labelStoryDescription.topAnchor.constraint(equalTo: textFieldstoryTitle.bottomAnchor , constant: CGFloat(ConstraintConstants.topOffset)),
+
+            labelStoryDescription.topAnchor.constraint(equalTo: textFieldstoryTitle.bottomAnchor, constant: CGFloat(ConstraintConstants.topOffset)),
             labelStoryDescription.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: CGFloat(ConstraintConstants.leadingOffset)),
             labelStoryDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: CGFloat(-ConstraintConstants.trailingOffset)),
             labelStoryDescription.heightAnchor.constraint(equalToConstant: ConstraintConstants.defaultHeight),
-            
-            textViewstoryDescription.topAnchor.constraint(equalTo: labelStoryDescription.bottomAnchor , constant: CGFloat(ConstraintConstants.topOffset)),
+
+            textViewstoryDescription.topAnchor.constraint(equalTo: labelStoryDescription.bottomAnchor, constant: CGFloat(ConstraintConstants.topOffset)),
             textViewstoryDescription.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: CGFloat(ConstraintConstants.leadingOffset)),
             textViewstoryDescription.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: CGFloat(-ConstraintConstants.trailingOffset)),
             textViewstoryDescription.bottomAnchor.constraint(equalTo: buttonSubmit.topAnchor, constant: CGFloat(-ConstraintConstants.bottomOffset)),
-            
-            buttonSubmit.topAnchor.constraint(equalTo: textViewstoryDescription.bottomAnchor , constant: CGFloat(ConstraintConstants.topOffset)),
+
+            buttonSubmit.topAnchor.constraint(equalTo: textViewstoryDescription.bottomAnchor, constant: CGFloat(ConstraintConstants.topOffset)),
             buttonSubmit.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: CGFloat(ConstraintConstants.leadingOffset)),
             buttonSubmit.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: CGFloat(-ConstraintConstants.trailingOffset)),
             buttonSubmit.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: CGFloat(-ConstraintConstants.endOffset))
-            
+
         ])
     }
 }
@@ -184,7 +180,7 @@ extension AddStoryViewController: UITextFieldDelegate {
 
 extension AddStoryViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text == "\n") {
+        if text == "\n" {
             self.view.endEditing(true)
             return false
         }
@@ -192,43 +188,42 @@ extension AddStoryViewController: UITextViewDelegate {
     }
 }
 
-extension AddStoryViewController{
-    func bindViewModel(){
-        
-        if let viewmodel = self.viewmodel{
+extension AddStoryViewController {
+    func bindViewModel() {
+
+        if let viewmodel = self.viewmodel {
             viewmodel.storyTitle.bidirectionalBind(to: textFieldstoryTitle.reactive.text)
             viewmodel.storyDescription.bidirectionalBind(to: textViewstoryDescription.reactive.text)
-            
-            viewmodel.isValidStoryTitle.map{$0 ? .label : .systemRed}.bind(to: textFieldstoryTitle.reactive.textColor)
-            
-            viewmodel.isValidStoryDescription.map{$0 ? .label : .systemRed}.bind(to: textViewstoryDescription.reactive.textColor)
-            
-            combineLatest(viewmodel.isValidStoryTitle, viewmodel.isValidStoryDescription){
-                isValidStoryTitle, isValidStoryDescription in
+
+            viewmodel.isValidStoryTitle.map {$0 ? .label : .systemRed}.bind(to: textFieldstoryTitle.reactive.textColor)
+
+            viewmodel.isValidStoryDescription.map {$0 ? .label : .systemRed}.bind(to: textViewstoryDescription.reactive.textColor)
+
+            combineLatest(viewmodel.isValidStoryTitle, viewmodel.isValidStoryDescription) { isValidStoryTitle, isValidStoryDescription in
                 return isValidStoryTitle && isValidStoryDescription
             }.bind(to: buttonSubmit.reactive.isEnabled)
-            
+
             _ = buttonSubmit.reactive.tap
                 .observeNext {_ in
                 // save data to local db...
-                    switch self.mode{
+                    switch self.mode {
                     case .add:
-                        if let viewmodel = viewmodel as? AddStoryModelable{
-                            viewmodel.addStory { (status) in
+                        if let viewmodel = viewmodel as? AddStoryModelable {
+                            viewmodel.addStory { (_) in
                                 self.coordinator?.goBackToHomeScreenAndRefetchAllData()
                             }
                         }
                     case .edit:
-                        if let viewmodel = viewmodel as? EditStoryModelable{
-                            viewmodel.editStory { (status) in
+                        if let viewmodel = viewmodel as? EditStoryModelable {
+                            viewmodel.editStory { (_) in
                                 self.coordinator?.goBackToHomeScreenAndRefetchAllData()
                             }
                         }
                     }
-                
+
             }
         }
-        
+
     }
-    
+
 }

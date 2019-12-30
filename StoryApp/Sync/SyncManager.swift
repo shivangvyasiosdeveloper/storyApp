@@ -10,22 +10,22 @@ import Foundation
 import CoreData
 
 protocol Syncable {
-    func Sync(completion: @escaping (Bool) -> ())
+    func Sync(completion: @escaping (Bool) -> Void)
 }
 
 final class SyncManager: Syncable {
     private var syncData: [DBObject]?
     static let sharedManager = SyncManager()
-    private init(){
+    private init() {
     }
-    
-    private func getSyncData() -> [DBObject]?{
+
+    private func getSyncData() -> [DBObject]? {
         // get all stories which are updated locally..
 
         return nil
     }
-    
-    func Sync(completion: @escaping (Bool) -> ()) {
+
+    func Sync(completion: @escaping (Bool) -> Void) {
         completion(true)
     }
 }

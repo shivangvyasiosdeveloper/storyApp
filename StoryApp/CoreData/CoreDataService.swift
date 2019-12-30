@@ -10,39 +10,38 @@ import Foundation
 import CoreData
 
 final class CoreDataService: DBService {
-   
-    
-    typealias F = NSManagedObjectID
-    typealias T = NSManagedObject
+
+    typealias FaultID = NSManagedObjectID
+    typealias Element = NSManagedObject
     static let sharedService = CoreDataService()
     private lazy var backgroundContext: NSManagedObjectContext = {
         let backgroundContext = self.persistentContainer.newBackgroundContext()
         return backgroundContext
     }()
-    
+
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "StoryApp")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 print("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
     }()
-    
-    private init(){
+
+    private init() {
     }
-    
-    func fetch<T>(_ model: T.Type, predicateFormat: String? = nil, completion:@escaping (([T]?) -> ())) where T : DBObject {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName:String(describing: T.self))
+
+    func fetch<T>(_ model: T.Type, predicateFormat: String? = nil, completion:@escaping (([T]?) -> Void)) where T: DBObject {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: T.self))
         fetchRequest.returnsObjectsAsFaults = false
-        
+
         if let predicateFormat = predicateFormat {
             fetchRequest.predicate = NSPredicate.init(format: predicateFormat)
         }
         let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
-            
-            guard let result = asynchronousFetchResult.finalResult as? [T] else{ completion(nil)
+
+            guard let result = asynchronousFetchResult.finalResult as? [T] else { completion(nil)
                 return
             }
             completion(result as [T])
@@ -54,20 +53,20 @@ final class CoreDataService: DBService {
             completion(nil)
         }
     }
-    
-    func fetchAll<T>(_ model: T.Type, completion:@escaping (([T]?) -> ())) where T : DBObject {
-            
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName:String(describing: T.self))
+
+    func fetchAll<T>(_ model: T.Type, completion:@escaping (([T]?) -> Void)) where T: DBObject {
+
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: T.self))
             fetchRequest.returnsObjectsAsFaults = false
 
             let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
 
-                guard let result = asynchronousFetchResult.finalResult as? [T] else{ completion(nil)
+                guard let result = asynchronousFetchResult.finalResult as? [T] else { completion(nil)
                     return
                 }
                 completion(result as [T])
             }
-            
+
             do {
                 _ = try backgroundContext.execute(asynchronousFetchRequest)
             } catch let error {
@@ -76,17 +75,15 @@ final class CoreDataService: DBService {
             }
 
     }
-    
-    
-    
+
     func update(block: @escaping () -> Void) throws {
-        
+
     }
 
-    func delete<T>(_ model: T.Type, object: DBObject, completion: @escaping () -> ()) throws where T : DBObject {
+    func delete<T>(_ model: T.Type, object: DBObject, completion: @escaping () -> Void) throws where T: DBObject {
 
-        if let objectToBeDelete = object as? T{
-            if let objectToBeDelete: Story = objectToBeDelete as? Story{
+        if let objectToBeDelete = object as? T {
+            if let objectToBeDelete: Story = objectToBeDelete as? Story {
                 objectToBeDelete.storyStatus = Int32(StoryStatus.Deleted)
             }
             self.save {
@@ -94,25 +91,25 @@ final class CoreDataService: DBService {
             }
         }
     }
-    
-    func deleteAll<T>(_ model: T.Type, completion:@escaping ((Bool) -> Void)) throws where T : DBObject {
+
+    func deleteAll<T>(_ model: T.Type, completion:@escaping ((Bool) -> Void)) throws where T: DBObject {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
         fetchRequest.returnsObjectsAsFaults = false
-        
+
         let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
-            guard let result = asynchronousFetchResult.finalResult as? [T] else{
+            guard let result = asynchronousFetchResult.finalResult as? [T] else {
                 completion(false)
                 return
             }
-                if let stories = result as? [Story]{
-                    for story in stories{
+                if let stories = result as? [Story] {
+                    for story in stories {
                         story.storyStatus = Int32(StoryStatus.Deleted)
                     }
                 }
                 completion(true)
                 return
             }
-        
+
         do {
             _ = try backgroundContext.execute(asynchronousFetchRequest)
         } catch let error {
@@ -122,26 +119,25 @@ final class CoreDataService: DBService {
     }
 
     func reset() throws {
-        
+
     }
-    
-    func create<T>(_ model: T.Type, completion: @escaping ((T) -> Void)) throws where T : DBObject {
-        
-        let entity = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: backgroundContext) as! T
+
+    func create<T>(_ model: T.Type, completion: @escaping ((T?) -> Void)) throws where T: DBObject {
+        let entity = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: backgroundContext) as? T
         completion(entity)
     }
-    
-    func save(completion: () -> ()) {
+
+    func save(completion: () -> Void) {
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-        do{
-            if backgroundContext.hasChanges{
+        do {
+            if backgroundContext.hasChanges {
                  try backgroundContext.save()
-                    if(persistentContainer.viewContext.hasChanges){
+                    if persistentContainer.viewContext.hasChanges {
                         try persistentContainer.viewContext.save()
                     }
                  completion()
                 return
-            }else{
+            } else {
                  completion()
                 return
             }
@@ -152,23 +148,24 @@ final class CoreDataService: DBService {
             return
         }
     }
-    
-    func getObjectFromFault<F>(objectID: F, completion: ((DBObject?) -> Void)) where F : ObjectID {
-        do{
-            let nonFaultObject: T = try self.backgroundContext.existingObject(with: objectID as! NSManagedObjectID)
-            completion(nonFaultObject)
-        }catch{
+
+    func getObjectFromFault<FaultID>(objectID: FaultID, completion: ((DBObject?) -> Void)) where FaultID: ObjectID {
+        do {
+            if let objectID = objectID as? NSManagedObjectID {
+                let nonFaultObject: Element? = try self.backgroundContext.existingObject(with: objectID)
+                completion(nonFaultObject)
+           }
+        } catch {
             completion(nil)
         }
     }
 
-    
 }
 
 extension CoreDataService {
-    func getSyncData<T>(_ model: T.Type, completion: @escaping (([T]?) -> Void)) throws where T : DBObject {
-        fetch(model, predicateFormat: "storyStatus != \(StoryStatus.Unchanged)") { (unsyncedStories) in
-            
+    func getSyncData<T>(_ model: T.Type, completion: @escaping (([T]?) -> Void)) throws where T: DBObject {
+        fetch(model, predicateFormat: "storyStatus != \(StoryStatus.Unchanged)") { (_) in
+
         }
        }
 }

@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension ServerTime {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ServerTime> {

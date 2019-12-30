@@ -4,21 +4,25 @@ PODS:
     - ReactiveKit (~> 3.14)
   - Differ (1.4.3)
   - ReactiveKit (3.15.4)
+  - SwiftLint (0.38.0)
 
 DEPENDENCIES:
   - Bond
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - Bond
     - Differ
     - ReactiveKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Bond: 9e7d901cf4ed825b6004a93dd0a7f1c7479e2834
   Differ: 6c7477d6187e8c36d02ec342a3c321061b85a0ea
   ReactiveKit: 9d1d8b600f9f1ae61a36c9d3f1aa47f5b0c8ea8f
+  SwiftLint: 4105f061f9812b214568b736dab580ab2c73a582
 
-PODFILE CHECKSUM: c73a9a9ca9fa5b6ceac25e9e33fe492edb6f997e
+PODFILE CHECKSUM: 4859d63a20a9176e96468dedf231df208f67e0c5
 
 COCOAPODS: 1.8.4

@@ -11,14 +11,14 @@ import Bond
 
 protocol StoryModelable {
     var storyTitle: Observable<String?> {get set}
-    var storyDescription: Observable<String?>{get set}
-    
+    var storyDescription: Observable<String?> {get set}
+
     var minTitleLength: Int {get}
     var maxTitleLength: Int {get}
     var minDescriptionLength: Int {get}
-    
-    var isValidStoryTitle: Observable<Bool>{get}
-    var isValidStoryDescription: Observable<Bool>{get}
+
+    var isValidStoryTitle: Observable<Bool> {get}
+    var isValidStoryDescription: Observable<Bool> {get}
 
 }
 protocol AddStoryModelable: StoryModelable {

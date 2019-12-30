@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-enum ConstraintConstants{
+/// describes a default constant constraints for add story screen.
+enum ConstraintConstants {
     static let leadingOffset: CGFloat = 20
     static let trailingOffset: CGFloat = 20
     static let topOffset: CGFloat = 20

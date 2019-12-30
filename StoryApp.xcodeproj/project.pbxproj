@@ -89,6 +89,7 @@
 		92BC5AF623B7008B00C4DAE1 /* StoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewModel.swift; sourceTree = "<group>"; };
 		92BC5AF923B7013700C4DAE1 /* StoryListViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewModelable.swift; sourceTree = "<group>"; };
 		92DFF60F23B9CBAF00F4B950 /* Logic.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Logic.txt; sourceTree = "<group>"; };
+		92DFF61323B9D42300F4B950 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		DE0767270D2F2F409B821FA4 /* Pods-StoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryApp.debug.xcconfig"; path = "Target Support Files/Pods-StoryApp/Pods-StoryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FB462C6724A164332CC76751 /* Pods-StoryAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryAppTests.debug.xcconfig"; path = "Target Support Files/Pods-StoryAppTests/Pods-StoryAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,6 +195,7 @@
 		92BC5ABF23B6FD0A00C4DAE1 /* StoryApp */ = {
 			isa = PBXGroup;
 			children = (
+				92DFF61223B9D41600F4B950 /* SwiftLint */,
 				92B1F66623B7BB950061505D /* Enums */,
 				92B1F65D23B774A30061505D /* LocalizedTexts */,
 				92B1F65223B73D770061505D /* Delegates */,
@@ -300,6 +302,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		92DFF61223B9D41600F4B950 /* SwiftLint */ = {
+			isa = PBXGroup;
+			children = (
+				92DFF61323B9D42300F4B950 /* .swiftlint.yml */,
+			);
+			path = SwiftLint;
+			sourceTree = "<group>";
+		};
 		96B8107E64A8EBFFEB397DBC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +330,7 @@
 			buildPhases = (
 				671095A80383C7EEBEA2B757 /* [CP] Check Pods Manifest.lock */,
 				92BC5AB923B6FD0A00C4DAE1 /* Sources */,
+				92DFF61123B9CF6400F4B950 /* swift lint */,
 				92BC5ABA23B6FD0A00C4DAE1 /* Frameworks */,
 				92BC5ABB23B6FD0A00C4DAE1 /* Resources */,
 				A5CFF098F8FB3CBADD1E775E /* [CP] Embed Pods Frameworks */,
@@ -455,6 +466,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		92DFF61123B9CF6400F4B950 /* swift lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "swift lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		A5CFF098F8FB3CBADD1E775E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

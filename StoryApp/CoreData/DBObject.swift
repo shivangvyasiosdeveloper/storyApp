@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 
 protocol DBObject {
-    
+
 }
 
-extension NSManagedObject: DBObject{
-    
+extension NSManagedObject: DBObject {
+
 }
