@@ -132,6 +132,8 @@ class StoryListViewController: UIViewController, StoryListViewControllerable {
     @objc func changeInternetAvaibility() {
         if switchInternetAvailability.isOn {
             Reachbility.status = .available
+            SyncManager.sharedManager.GetUnsyncData { (_) in
+            }
         } else {
             Reachbility.status = .unAvailable
         }

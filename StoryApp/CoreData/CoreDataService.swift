@@ -32,8 +32,8 @@ final class CoreDataService: DBService {
     private init() {
     }
 
-    func fetch<T>(_ model: T.Type, predicateFormat: String? = nil, completion:@escaping (([T]?) -> Void)) where T: DBObject {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: T.self))
+    func fetch<Element>(_ model: Element.Type, predicateFormat: String? = nil, completion:@escaping (([Element]?) -> Void)) where Element: DBObject {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: Element.self))
         fetchRequest.returnsObjectsAsFaults = false
 
         if let predicateFormat = predicateFormat {
@@ -41,10 +41,10 @@ final class CoreDataService: DBService {
         }
         let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
 
-            guard let result = asynchronousFetchResult.finalResult as? [T] else { completion(nil)
+            guard let result = asynchronousFetchResult.finalResult as? [Element] else { completion(nil)
                 return
             }
-            completion(result as [T])
+            completion(result as [Element])
         }
         do {
             _ = try backgroundContext.execute(asynchronousFetchRequest)
@@ -54,17 +54,17 @@ final class CoreDataService: DBService {
         }
     }
 
-    func fetchAll<T>(_ model: T.Type, completion:@escaping (([T]?) -> Void)) where T: DBObject {
+    func fetchAll<Element>(_ model: Element.Type, completion:@escaping (([Element]?) -> Void)) where Element: DBObject {
 
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: T.self))
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: String(describing: Element.self))
             fetchRequest.returnsObjectsAsFaults = false
 
             let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
 
-                guard let result = asynchronousFetchResult.finalResult as? [T] else { completion(nil)
+                guard let result = asynchronousFetchResult.finalResult as? [Element] else { completion(nil)
                     return
                 }
-                completion(result as [T])
+                completion(result as [Element])
             }
 
             do {
@@ -80,9 +80,9 @@ final class CoreDataService: DBService {
 
     }
 
-    func delete<T>(_ model: T.Type, object: DBObject, completion: @escaping () -> Void) throws where T: DBObject {
+    func delete<Element>(_ model: Element.Type, object: DBObject, completion: @escaping () -> Void) throws where Element: DBObject {
 
-        if let objectToBeDelete = object as? T {
+        if let objectToBeDelete = object as? Element {
             if let objectToBeDelete: Story = objectToBeDelete as? Story {
                 objectToBeDelete.storyStatus = Int32(StoryStatus.Deleted)
             }
@@ -92,12 +92,12 @@ final class CoreDataService: DBService {
         }
     }
 
-    func deleteAll<T>(_ model: T.Type, completion:@escaping ((Bool) -> Void)) throws where T: DBObject {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
+    func deleteAll<Element>(_ model: Element.Type, completion:@escaping ((Bool) -> Void)) throws where Element: DBObject {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Element.self))
         fetchRequest.returnsObjectsAsFaults = false
 
         let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { asynchronousFetchResult in
-            guard let result = asynchronousFetchResult.finalResult as? [T] else {
+            guard let result = asynchronousFetchResult.finalResult as? [Element] else {
                 completion(false)
                 return
             }
@@ -122,8 +122,8 @@ final class CoreDataService: DBService {
 
     }
 
-    func create<T>(_ model: T.Type, completion: @escaping ((T?) -> Void)) throws where T: DBObject {
-        let entity = NSEntityDescription.insertNewObject(forEntityName: String(describing: T.self), into: backgroundContext) as? T
+    func create<Element>(_ model: Element.Type, completion: @escaping ((Element?) -> Void)) throws where Element: DBObject {
+        let entity = NSEntityDescription.insertNewObject(forEntityName: String(describing: Element.self), into: backgroundContext) as? Element
         completion(entity)
     }
 
@@ -159,13 +159,4 @@ final class CoreDataService: DBService {
             completion(nil)
         }
     }
-
-}
-
-extension CoreDataService {
-    func getSyncData<T>(_ model: T.Type, completion: @escaping (([T]?) -> Void)) throws where T: DBObject {
-        fetch(model, predicateFormat: "storyStatus != \(StoryStatus.Unchanged)") { (_) in
-
-        }
-       }
 }

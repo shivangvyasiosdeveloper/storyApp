@@ -211,12 +211,16 @@ extension AddStoryViewController {
                         if let viewmodel = viewmodel as? AddStoryModelable {
                             viewmodel.addStory { (_) in
                                 self.coordinator?.goBackToHomeScreenAndRefetchAllData()
+                                SyncManager.sharedManager.GetUnsyncData { (_) in
+                                }
                             }
                         }
                     case .edit:
                         if let viewmodel = viewmodel as? EditStoryModelable {
                             viewmodel.editStory { (_) in
                                 self.coordinator?.goBackToHomeScreenAndRefetchAllData()
+                                SyncManager.sharedManager.GetUnsyncData { (_) in
+                                }
                             }
                         }
                     }

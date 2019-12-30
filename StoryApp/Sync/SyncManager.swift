@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 protocol Syncable {
-    func Sync(completion: @escaping (Bool) -> Void)
+    func GetUnsyncData(completion: @escaping (Bool) -> Void)
 }
 
 final class SyncManager: Syncable {
@@ -18,10 +18,10 @@ final class SyncManager: Syncable {
     static let sharedManager = SyncManager()
     private init() {
     }
-    func Sync(completion: @escaping (Bool) -> Void) {
+    func GetUnsyncData(completion: @escaping (Bool) -> Void) {
         CoreDataService.sharedService.fetch(Story.self, predicateFormat: "storyStatus != \(StoryStatus.Unchanged)") { (unsynchedStories) in
-//            print(unsynchedStories)
+            print(unsynchedStories)
+            completion(true)
         }
-        completion(true)
     }
 }

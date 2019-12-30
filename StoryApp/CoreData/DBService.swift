@@ -48,11 +48,6 @@ protocol ObjectFromFaultService {
 protocol CreateDBService {
     func create<Element: DBObject>(_ model: Element.Type, completion: @escaping ((Element?) -> Void)) throws
 }
-
-protocol SyncService {
-    func getSyncData<Element: DBObject>(_ model: Element.Type, completion: @escaping (([Element]?) -> Void)) throws
-}
-
-protocol DBService: CreateDBService, FetchDBService, UpdateDBService, DeleteDBService, ObjectFromFaultService, SyncService {
+protocol DBService: CreateDBService, FetchDBService, UpdateDBService, DeleteDBService, ObjectFromFaultService {
     func save(completion:() -> Void)
 }
