@@ -57,8 +57,6 @@ extension AddEditStoryViewModel {
             try CoreDataService.sharedService.create(Story.self, completion: { (storyEntity) in
                 if let storyEntity = storyEntity {
                     storyEntity.storyId = UUID()
-                    print(UUID())
-                    print(UUID().uuidString)
                     storyEntity.storyTitle = self.storyTitle.value
                     storyEntity.createdDate = Date()
                     storyEntity.createdBy = LoginUser.userId

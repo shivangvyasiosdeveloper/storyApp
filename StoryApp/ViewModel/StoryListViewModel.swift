@@ -77,11 +77,3 @@ extension StoryListViewModel {
         }
     }
 }
-
-extension StoryListViewModel {
-    func syncStories() {
-        print("syncing stories to server....")
-        // find those stories from coredata for which status != Unchanged and send all of them to server....if more data then use fetch size, fetch limit, fetch offset...
-
-    }
-}
