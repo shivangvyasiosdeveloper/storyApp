@@ -26,13 +26,14 @@ final class SyncManager: Syncable {
             print("post this data to server via api...")
             print(unsynchedStories)
             print("######################################")
+            print("once you receive status from server, mark these unsync data synced in db")
+            print("######################################")
             completion(true)
         }
     }
 }
-
 extension SyncManager: ReachabilityChanged {
-    func ConnectivityChanged(notification: Notification) {
+@objc func ConnectivityChanged(notification: Notification) {
         if let reachebility = notification.object as? Reachability {
             switch reachebility.connection {
             case .unavailable:

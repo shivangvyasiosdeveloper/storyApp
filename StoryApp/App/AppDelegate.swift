@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let mainCoordinator = Coordinator(mainNavigationController)
         mainCoordinator.start()
+        _ = SyncManager.sharedManager
         return true
     }
     func applicationDidBecomeActive(_ application: UIApplication) {

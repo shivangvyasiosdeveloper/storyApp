@@ -63,4 +63,7 @@ class ReachabilityManager: Reachable {
     func addObserver(observer: ReachabilityChanged & AnyObject) {
         self.observers.append(observer)
     }
+    func removeAllObservers() {
+        self.observers.removeAll()
+    }
 }

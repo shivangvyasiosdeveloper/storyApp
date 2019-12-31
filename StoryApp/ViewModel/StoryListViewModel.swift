@@ -70,7 +70,7 @@ extension StoryListViewModel {
             if let deleteStory = storyToBeDeleted {
                 try CoreDataService.sharedService.delete(Story.self, object: deleteStory, completion: {
                         completion()
-                })
+               })
             }
         } catch {
             completion()
